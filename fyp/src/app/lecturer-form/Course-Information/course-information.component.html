@@ -1,0 +1,367 @@
+
+<mat-card>
+  <h3>COURSE INFORMATION FOR CURRENT SEMESTER/TERM</h3>
+</mat-card>
+
+<form [formGroup]="courseInformation" (ngSubmit)="saveCourseInformation(courseInformation)">
+  <mat-card>
+      <table class="table1">
+          <tr>
+            <td class="title">
+              <p>
+                Academic Session
+              </p>
+            </td>
+            <td class="information">
+              <div *ngFor="let c of course">
+                  <p>
+                      {{c.session}}
+                    </p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+              <td class="title">
+                <p>
+                    Semester/Term
+                </p>
+              </td>
+              <td class="information">
+                  <div *ngFor="let c of course">
+                      <p>
+                          {{c.semester}}
+                        </p>
+                  </div>
+              </td>
+            </tr>
+            <tr>
+                <td class="title">
+                  <p>
+                      Course Code
+                  </p>
+                </td>
+                <td class="information">
+                    <div *ngFor="let c of course">
+                        <p>
+                            {{c.courseCode}}
+                          </p>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                  <td class="title">
+                    <p>
+                        Course Title
+                    </p>
+                  </td>
+                  <td class="information">
+                      <div *ngFor="let c of course">
+                          <p>
+                              {{c.name}}
+                            </p>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                    <td class="title">
+                      <p>
+                          Medium of Instruction
+                      </p>
+                    </td>
+                    <td class="information">
+                        <mat-form-field class="Medium" >
+                            <mat-select placeholder="Select" formControlName="medium">
+                                <mat-option value="Bahasa Melayu">Bahasa Melayu</mat-option>
+                                <mat-option value="English">Bahasa Inggeris</mat-option>
+                              </mat-select>
+                              <!-- <mat-hint >Medium</mat-hint> -->
+                          </mat-form-field>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td class="title">
+                        <p>
+                            Main Reference
+                        </p>
+                      </td>
+                      <td class="information" >
+                        <div formArrayName="references" *ngFor="let refrence of courseInformation.get('references')['controls']; let row=index">
+                            <div [formGroupName]="row">
+
+                                <mat-form-field class="references">
+                                    <input matInput placeholder="Reference" (change)="getReferences(courseInformation)" formControlName="reference">
+                                  </mat-form-field>
+
+                                  <button mat-raised-button color="warn" type="button"(click)="removeReferenceButton(row,refrence.value.referenceId)"  class="removeBtn">REMOVE</button>
+                            </div>
+                        </div>
+
+                        <button mat-raised-button color="primary" type="button" (click)="addReferenceButton()"  class="addBtn">ADD</button>
+
+
+                      </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                          <p>
+                              Learning Strategies
+                          </p>
+                        </td>
+                        <td class="information">
+                          <div class="sltTitle" *ngFor="let str of strategies; let i=index">
+                              <p>
+                                {{str}},
+                              </p>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                          <td class="title">
+                            <p>
+                                Student Learning Time
+                            </p>
+                          </td>
+                          <td class="information">
+                            <p class="sltTitle">Face to face : </p>
+                            <p class="sltInfo">{{totalMeetHour}}</p>
+                            <br>
+                            <p class="sltTitle">Non Face to face : </p>
+                            <p class="sltInfo">{{totalNotMeetHour}}</p>
+                            <br>
+                            <p class="sltTitle">Student Preparation Time : </p>
+                            <p class="sltInfo">{{totalStudentPrepare}}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td class="title">
+                              <p>
+                                Transferable Skills
+                              </p>
+                            </td>
+                            <td class="information">
+                                <mat-form-field class="transSkill">
+                                    <textarea matInput rows="2" cols="200" placeholder="Skill" formControlName="skill"></textarea>
+                                  </mat-form-field>
+                            </td>
+                          </tr>
+
+
+                          <tr>
+                            <td>
+                                <!-- <table class="table2" id="lecturerInfo">
+                                    <tr class="lectureRow">
+                                      <td class="lectureTitle" id="lecturerInfo">
+                                          Lecturer
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                          Room
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Telephone/e-mail
+                                        </td>
+                                    </tr>
+                                  </table> -->
+                                  <p class="lecturerInfo">Lecturer</p>
+                                  <p class="lecturerInfo">Room</p>
+                                  <p >Telephone/e-mail</p>
+                            </td>
+                            <td>
+                                <div *ngFor="let c of users; let i=index" class="lecturerName">
+                                    {{c.lecturerName}}
+                                </div>
+                                <table class="table2">
+
+                                    <tr>
+                                      <td>
+                                          <mat-form-field class="transSkill">
+                                              <input matInput placeholder="Room" formControlName="room">
+                                            </mat-form-field>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                          <mat-form-field class="transSkill">
+                                              <input matInput placeholder="Telephone/e-mail" formControlName="telephoneNo">
+                                            </mat-form-field>
+                                      </td>
+                                    </tr>
+                                  </table>
+                            </td>
+                          </tr>
+
+
+                          <tr>
+                              <td>
+                                  <p class="lecturerInfo">Lecture Session</p>
+                                  <p class="lecturerInfo"> Day/Time</p>
+                                  <p >Venue</p>
+                              </td>
+                              <td>
+                                  <table class="table2">
+                                      <tr>
+                                        <td>
+                                            <mat-form-field class="transSkill">
+                                                <input matInput placeholder="Lecture Session" formControlName="lectureSession">
+                                              </mat-form-field>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                            <mat-form-field class="transSkill">
+                                                <input matInput placeholder="Day/Time" formControlName="lectureDay">
+                                              </mat-form-field>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                            <mat-form-field class="transSkill">
+                                                <input matInput placeholder="Venue" formControlName="lectureVenue">
+                                              </mat-form-field>
+                                        </td>
+                                      </tr>
+                                    </table>
+                              </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <p class="lecturerInfo">Practical Session</p>
+                                    <p class="lecturerInfo"> Day/Time</p>
+                                    <p >Venue</p>
+                                </td>
+                                <td>
+                                    <table class="table2">
+                                        <tr>
+                                          <td>
+                                              <mat-form-field class="transSkill">
+                                                  <input matInput placeholder="Practical Session" formControlName="practicalSession">
+                                                </mat-form-field>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                              <mat-form-field class="transSkill">
+                                                  <input matInput placeholder="Day/Time" formControlName="practicalDay">
+                                                </mat-form-field>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                              <mat-form-field class="transSkill">
+                                                  <input matInput placeholder="Venue" formControlName="practicalVenue">
+                                                </mat-form-field>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td>
+                                    Detail of Assessment Weightage
+                                </td>
+                                <td>
+                                  <p class="sltTitle">Continuous Assessment : </p>
+                                  <p class="sltInfo">{{totalContWeigtage}}%</p>
+                                  <br>
+                                  <div *ngFor="let type of assessType;  let i=index">
+                                    <p class="sltTitle">{{assessType[i]}} : </p>
+                                    <p class="sltInfo">{{assessWeight[i]}}%</p>
+                                    <br>
+                                  </div>
+                                  <!-- <p>Lab Test : </p>
+                                  <p></p>
+                                  <p>Assignment Presentation 1 : </p>
+                                  <p></p> -->
+                                  <p class="sltTitle">Examination : </p>
+                                  <p class="sltInfo">{{examWeight}}%</p>
+                                </td>
+                              </tr>
+
+        </table>
+  </mat-card>
+
+  <mat-card>
+    <h4>Jadual Pengajaran / Teaching Schedule</h4>
+    <table class="table3">
+     <tr>
+      <th class="week">Week</th>
+      <th>Topic & Activities</th>
+      <th>References</th>
+     </tr>
+     <tr formArrayName="teachTable" *ngFor="let teachTable of courseInformation.get('teachTable')['controls']; let tea=index">
+       <td [formGroupName]="tea">
+
+            <p class="weekNumber"> {{tea+1}} </p>
+
+         </td>
+       <td>
+         <div [formGroupName]="tea">
+           <div formArrayName="weekInfo" *ngFor="let week of teachTable.get('weekInfo')['controls']; let w=index">
+             <div [formGroupName]="w">
+
+                <mat-form-field class="descTitle">
+                      <input type="text" placeholder="Pick one" formControlName="activityType"  matInput  [matAutocomplete]="auto">
+                      <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of strategies" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+
+
+                  </mat-form-field>
+                  <mat-form-field class="desc">
+                      <input matInput placeholder="Description" formControlName="activityDesc"  >
+                    </mat-form-field>
+
+                    <br>
+                    <button mat-raised-button color="warn" type="button"(click)="removeWeekInfo(w,teachTable,week.value.activityId)"  class="removeBtn">REMOVE</button>
+
+             </div>
+           </div>
+           <button  mat-raised-button color="primary" type="button" (click)=addRemoveInfo(teachTable) class="addBtn">ADD</button>
+           <br>
+           <mat-form-field class="desc">
+            <textarea matInput placeholder="Other" formControlName="weekOtherDesc" [id]="'weekOtherDesc'+tea"></textarea>
+          </mat-form-field>
+         </div>
+
+
+       </td>
+       <td>
+         <div [formGroupName]="tea">
+           <div formArrayName="teachRef" *ngFor="let ref of teachTable.get('teachRef')['controls']; let r=index">
+             <div [formGroupName]="r">
+                <mat-form-field class="teachRef" >
+
+                      <input type="text" placeholder="Pick one" formControlName="timeTableRef"  matInput  [matAutocomplete]="auto">
+                      <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of refer" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+
+                  </mat-form-field>
+             </div>
+             <button mat-raised-button color="warn" type="button"(click)="removeTeachRef(r,teachTable,ref.value.teachRefId)"  class="removeBtn">REMOVE</button>
+           </div>
+           <button  mat-raised-button color="primary" type="button" (click)="addTeachRef(teachTable)" class="addBtn">ADD</button>
+         </div>
+
+       </td>
+
+     </tr>
+
+    </table>
+  </mat-card>
+
+  <mat-card>
+      <button mat-raised-button color ="primary" type="submit" id="btnSubmit"  >Save Post</button>
+      <button mat-raised-button color ="primary" routerLink="/list" id="btnBack">Back</button>
+  </mat-card>
+</form>

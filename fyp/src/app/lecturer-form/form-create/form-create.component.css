@@ -1,0 +1,164 @@
+mat-card{
+
+  margin-top:1rem;
+  width:80%;
+  margin:auto;
+  margin-Bottom:3rem;
+
+}
+table{
+  margin:auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+th,td{
+  margin-left:3em;
+}
+
+.PLOInput{
+  width:2em;
+
+}
+
+.ploRow,.checkBox{
+  margin:auto;
+}
+
+.textarea{
+  margin-top:1em;
+  margin-left:1em;
+  width:80%;
+}
+
+.taxoLevel{
+  width: 5em;
+  margin-left: 1em;
+}
+.taxoLevel,.taxoLevelTitle{
+  display: inline-block;
+}
+.assessment,.Weightage,.doubleDot{
+  display: inline-block;
+}
+.assessment{
+  width:7em;
+  padding-top:1em;
+  margin-left:1em;
+}
+.strategies{
+  width:7em;
+  padding-top:1em;
+  margin-left:1em;
+}
+.doubleDot{
+  margin:0%;
+  padding:0%;
+  width: 1em;
+}
+.Weightage,#finalweight{
+  width:5em;
+}
+.finalweight,#finalweight{
+  display: inline-block;
+}
+.BtnAdd1{
+  margin-left: 7em;
+  }
+.BtnAdd2{
+margin-left: 5em;
+}
+.BtnAdd3{
+  margin-left: 4em;
+  }
+mat-checkbox{
+
+  margin-right:3em;
+}
+
+h3 {
+  width : 50%;
+  margin:auto;
+  padding-top:3%;
+  padding-bottom:3%;
+  text-align: center;
+}
+
+#pensyarahName,#pensyarah{
+  display:inline-block;
+}
+
+#code,.courseId{
+  display:inline-block;
+}
+#session,.sessionId{
+  display:inline-block;
+}
+#semester,.semesterId{
+  display:inline-block;
+}
+
+mat-option{
+  width:100%;
+}
+
+
+p{
+  padding:1rem;
+}
+
+.pensyarahId,#pensyarahName{
+  width:40%;
+}
+
+.courseId{
+  width:40%;
+}
+#courseCode{
+  width:100%;
+}
+
+.sessionId{
+  width:20%
+}
+
+#academicSession{
+  width:100%;
+}
+
+.semesterId{
+  width:10%
+}
+#sem{
+  width:100%;
+}
+
+button{
+  margin-bottom:2em;
+}
+
+mat-spinner{
+  margin:auto;
+}
+
+
+#btnSubmit{
+  float:right;
+}
+
+.addBtn{
+  margin-top:1em;
+  margin-left: 90%;
+  margin-bottom:1em;
+}
+/* .removeBtn{
+  margin-left: 50%;
+} */
+.displayTotal{
+  text-align: right;
+}
+.totalWeight{
+  text-align: center;
+}
+

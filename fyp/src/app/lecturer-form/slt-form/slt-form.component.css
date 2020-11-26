@@ -1,0 +1,119 @@
+mat-card{
+  margin:auto;
+  /* margin-top:1rem; */
+  margin-bottom:1rem;
+
+  width:80%;
+
+}
+.cardTable{
+  margin-bottom: 4em;
+}
+table{
+  margin: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+h3 {
+  width : 50%;
+  margin:auto;
+  padding-top:3%;
+  padding-bottom:3%;
+  text-align: center;
+}
+
+.final{
+  margin-left:10%;
+}
+
+#pensyarahName,#pensyarah{
+  display:inline-block;
+}
+
+#code,.courseId{
+  display:inline-block;
+}
+.sessionId,#session{
+  display:inline-block;
+}
+#semester,.semesterId{
+  display:inline-block;
+}
+
+.pensyarahId,#pensyarahName{
+  width:40%;
+}
+
+#pensyarah,#code,#session,#semester{
+  margin-right: 1em;
+}
+
+.courseId{
+  width:40%;
+}
+#courseCode{
+  width:100%;
+}
+
+.sessionId{
+  width:20%
+}
+
+#academicSession{
+  width:100%;
+}
+
+.semesterId{
+  width:10%
+}
+#sem{
+  width:100%;
+}
+.activities{
+  width:7em;
+  margin-left:1em;
+}
+.hour,.times,.week{
+  display: inline-block;
+}
+.times,.equal{
+  margin:0%;
+  width: 1em;
+}
+.hour,.equal{
+  margin-left:1em;
+}
+.hour,.week,.total{
+  width:4em;
+}
+.equal,.total,.hourLabel{
+  display: inline-block;
+}
+.learnTotal{
+  margin-left: 4em;
+}
+.finalTotal{
+  margin-left: 80%;
+}
+.TotalSummative{
+  margin-left: 11em;
+}
+.addBtn{
+  margin-left: 94%;
+}
+#btnSubmit{
+  float:right;
+}
+.max,.maxcredit{
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+
+

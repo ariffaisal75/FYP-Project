@@ -1,0 +1,101 @@
+mat-card{
+  margin:auto;
+  /* margin-top:1rem; */
+  margin-bottom:1rem;
+
+  width:80%;
+
+}
+
+h3{
+  text-align: center;
+}
+.table1{
+  margin: auto;
+  width: 80%;
+}
+table,td,th {
+  border: 1px solid black;
+}
+.table2{
+  width:100%
+}
+.table3{
+  width:90%;
+  margin:auto;
+}
+.information{
+  width:50%
+}
+.title{
+  width:20%
+}
+.week{
+  width:7%;
+}
+.weekNumber{
+  text-align:center ;
+}
+p{
+  margin-left: 1%;
+}
+
+.Medium{
+  margin-left: 1%;
+}
+.addBtn{
+  margin-left: 3%;
+  margin-top:1%;
+}
+.transSkill{
+  margin-left: 1%;
+  width:80%;
+}
+.lectureTitle{
+  height: 30%;
+}
+.lectureRow{
+  height:100%;
+}
+#lecturerInfo{
+  padding:0%
+}
+.lecturerInfo{
+  margin-bottom:20%;
+}
+.lecturerName{
+  margin-left: 1%;
+  margin-bottom:5%;
+  margin-top:5%;
+}
+.sltTitle,.sltInfo{
+  display: inline-block;
+}
+button{
+  margin-bottom:3%;
+}
+#btnSubmit{
+  float:right;
+}
+.references{
+  margin-left:1%;
+  width:90%
+}
+.removeBtn{
+  float: right;
+  margin-right: 2%;
+  margin-top:1%;
+}
+.desc{
+  margin-left:3%;
+  width:90%;
+}
+.descTitle{
+
+  margin-left: 3%;
+}
+.teachRef{
+  width: 90%;
+  margin-left:3%;
+}
+/* addRowBtn */

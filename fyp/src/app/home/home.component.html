@@ -1,0 +1,43 @@
+
+<mat-card id="main">
+<mat-card id="profile">
+    <img [src]="imagePath">
+    <div id="detail">
+      <mat-card-header>
+        <h3>Welcome</h3>
+      </mat-card-header>
+      <div *ngFor="let user of users">
+          <p>{{user.lecturerName}}</p>
+          <p>{{user.staffId}}</p>
+          <p>{{user.department}}</p>
+      </div>
+
+
+    </div>
+
+</mat-card>
+<div id="form">
+<mat-card id="form1">
+    <p id="title">PENYELARASAN HASIL PEMBELAJARAN KEPADA KAEDAH PENILAIAN</p>
+    <div id="action">
+      <button mat-raised-button color="primary" routerLink="/create" routerLinkActive="mat-accent" id="create">CREATE</button>
+      <button mat-raised-button color="primary" routerLink="/list" routerLinkActive="mat-accent" id="edit">EDIT</button>
+      <!-- <button mat-raised-button color="primary" id="print">PRINT</button> -->
+    </div>
+
+</mat-card>
+<mat-card id="form2">
+    <p id="title2">MASA PEMBELAJARAN PELAJAR</p>
+    <div id="action2">
+        <button mat-raised-button color="primary" routerLink="/list" routerLinkActive="mat-accent" id="create2">CREATE</button>
+        <button mat-raised-button color="primary" routerLink="/list" routerLinkActive="mat-accent" id="edit2">EDIT</button>
+        <!-- <button mat-raised-button color="primary" id="print2">PRINT</button> -->
+    </div>
+
+</mat-card>
+</div>
+</mat-card>
+
+
+
+

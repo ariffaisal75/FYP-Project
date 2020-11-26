@@ -1,0 +1,27 @@
+<div class="shadow">
+
+
+  <mat-card>
+    <h2 id="welcome">WELCOME</h2>
+    <form (submit)="onSignup(signupForm)" #signupForm="ngForm">
+
+      <mat-form-field>
+        <input id="Name" type="text" matInput placeholder="Name" ngModel name="LecturerName" required>
+        <mat-error >Please enter the Your Name</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input id="signup" type="text" matInput placeholder="username" ngModel name="username" required>
+        <mat-error >Please enter the valid username</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input type="password" matInput placeholder="password" ngModel name="password" required>
+          <mat-error >Please enter the valid password</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color ="primary" type="submit" *ngIf="!isLoading">Signup</button>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </form>
+  </mat-card>
+  </div>

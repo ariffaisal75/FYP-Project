@@ -1,0 +1,29 @@
+export interface align{
+  id:string
+  plo1:number,
+  plo2:number,
+  plo3:number,
+  CloInfo:{
+    cloId:string,
+    clo:string,
+    taxoLevel:string,
+    checkBox1:string,
+    checkBox2:string,
+    checkBox3:string,
+    strategies:{
+      strategy:string,
+      strategyId:string,
+      checkExist:boolean,
+    },
+    assessment:{
+      assessment:string,
+      weightage:number,
+      assessmentId:string,
+      assessCheck:boolean,
+    },
+    criteria:number,
+    criteria2:number,
+    finalExam:number,
+  }
+
+}

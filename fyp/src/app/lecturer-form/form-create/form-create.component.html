@@ -1,0 +1,197 @@
+
+ <mat-spinner *ngIf="isLoading"></mat-spinner>
+ <!-- #createForm="ngForm"  (submit)="onAddForm(createForm)" -->
+ <!-- [formGroup]="form" (ngSubmit)="onAddForm(form)"  -->
+ <form  *ngIf="!isLoading"  [formGroup]="orderForm"  (ngSubmit)="saveData(orderForm)">
+
+<mat-card>
+  <h3>PENYELARASAN HASIL PEMBELAJARAN KEPADA KAEDAH PENILAIAN</h3></mat-card>
+
+<mat-card>
+
+
+  <div class="pensyarah" *ngFor="let user of users">
+    <P id="pensyarah" >Nama Pensyarah : </P>
+    <p id="pensyarahName" >{{user.lecturerName}}</p>
+  </div>
+
+  <div class="course" *ngFor="let c of course">
+    <p id="code" class="w3-display-left" >Kod dan Tajuk Kursus : </p>
+
+    <p class= "courseId">{{c.courseName}}</p>
+
+<br>
+  <p id="session">Sesi Akademik : </p>
+
+  <p class= "sessionId">{{c.session}}</p>
+
+
+  <p id="semester">Semester : </p>
+  <p class= "semesterId">{{c.semester}}</p>
+
+
+  </div>
+<br>
+
+
+</mat-card>
+
+<mat-card>
+
+  <table>
+    <tr>
+        <th class="firstColumn" width="200">COURSE LEARNING OUTCOME (CLO)</th>
+        <th width="220">PROGRAMME LEARNING OUTCOME (PLO)
+            <table class="ploRow"  >
+              <tr>
+                <td>PLO <input formControlName="plo1" matInput class="PLOInput" type="number" min="1" placeholder="0"></td>
+                <td>PLO <input formControlName="plo2" matInput class="PLOInput" type="number" min="1" placeholder="0"></td>
+                <td >PLO<input formControlName="plo3" matInput class="PLOInput" type="number" min="1" placeholder="0"></td>
+              </tr>
+            </table>
+        </th>
+
+        <th width="170">LEARNING STRATEGIES</th>
+        <th width="250">ASSESSMENT & ASSESSMENT WEIGHTAGE</th>
+        <th width="260">CRITERIA FOR ACHIEVEMENT OF COURSE LEARNING OUTCOME</th>
+        <!-- <th></th> -->
+    </tr>
+
+    <tr  formArrayName="cloInfo" *ngFor="let cloInfo of orderForm.get('cloInfo')['controls']; let row=index">
+
+      <td>
+
+          <div [formGroupName]="row">
+              <mat-form-field class="textarea">
+                  <textarea formControlName="clo" matInput placeholder="CLO" rows="7" [id]="'CLO'+row" cols="50"></textarea>
+                </mat-form-field>
+          </div>
+
+
+          <div [formGroupName]="row">
+              <p class="taxoLevelTitle">Taxonomy level : </p>
+                <mat-form-field class="taxoLevel">
+                    <input formControlName="taxoLevel" [id]="'taxoLevel'+row" matInput >
+                  </mat-form-field>
+          </div>
+
+      </td>
+      <td>
+          <table class="ploRow" >
+              <tr>
+                <td class="checkBox">
+
+                    <div [formGroupName]="row">
+                        <mat-checkbox formControlName="checkBox1" [id]="'checkBox1'+row"></mat-checkbox>
+                    </div>
+
+              </td>
+                <td class="checkBox">
+
+                        <div [formGroupName]="row">
+                        <mat-checkbox formControlName="checkBox2" [id]="'checkBox2'+row"></mat-checkbox>
+                    </div>
+
+              </td>
+                <td class="checkBox">
+
+                        <div [formGroupName]="row">
+                        <mat-checkbox formControlName="checkBox3" [id]="'checkBox3'+row"></mat-checkbox>
+                    </div>
+
+              </td>
+              </tr>
+            </table>
+      </td>
+      <td class="strategiesColumn">
+
+        <div [formGroupName]="row">
+
+              <div formArrayName="strategies" *ngFor="let cloInfo2 of cloInfo.get('strategies')['controls']; let str=index">
+                <div [formGroupName]="str">
+                    <mat-form-field class="strategies">
+                        <input formControlName="strategy" [id]="'strategy'+str" matInput placeholder="Strategies">
+                        <!-- <p formControlName="strategyId"></p> -->
+                      </mat-form-field>
+                </div>
+                <button mat-raised-button color ="warn" class="BtnAdd1" *ngIf="str>0"  type="button"   (click)="removeStrategiesButton(str,cloInfo,cloInfo2.value.strategyId)">REMOVE</button>
+                </div>
+        </div>
+
+
+            <button mat-raised-button color ="primary" class="BtnAdd3"  type="button"  (click)="addStrategiesButton(cloInfo)">ADD</button>
+
+      </td>
+      <td>
+        <div [formGroupName]="row">
+            <div formArrayName="assessment"   *ngFor="let cloInfo2 of cloInfo.get('assessment')['controls']; let assess=index">
+                <div [formGroupName]="assess">
+                    <mat-form-field class="assessment">
+                        <input matInput formControlName="assess" [id]="'assessment'+assess" placeholder="Assessment">
+                      </mat-form-field>
+                      <p  class="doubleDot">:</p>
+                      <mat-form-field class="Weightage">
+                          <input matInput formControlName="weightage" type="number" min=1 max=100 [id]="'weightage'+assess" placeholder="Weightage" (change)="weightchange(cloInfo)">
+                        </mat-form-field>
+
+
+                </div>
+
+
+                <button mat-raised-button color ="warn" class="BtnAdd1" *ngIf="assess>0"  type="button"   (click)="removeAssessmentButton(assess,cloInfo,cloInfo2.value.assessmentId)">REMOVE</button>
+            </div>
+
+            <p class="finalweight">Final Exam : </p>
+            <mat-form-field id="finalweight">
+              <input matInput formControlName="finalExam" type="number" min=1 max=100 placeholder="Weightage" (change)="weightchange(cloInfo)">
+            </mat-form-field>
+
+        </div>
+
+
+      <button mat-raised-button color ="primary" type="button" class="BtnAdd2" (click)=" addAssessmentButton(cloInfo)">ADD</button>
+    </td>
+
+      <td>
+
+          <div [formGroupName]="row">
+              <mat-form-field class="textarea">
+                  <!-- <textarea  matInput [id]="'criteria'+row" placeholder="Criteria 1" rows="7" cols="50"></textarea> -->
+                  <input matInput formControlName="criteria1" placeholder="Criteria 1(%)" type=number min=1>
+                </mat-form-field>
+
+                <mat-form-field class="textarea">
+                  <!-- <textarea  matInput [id]="'criteria'+row" placeholder="Criteria 1" rows="7" cols="50"></textarea> -->
+                  <input matInput formControlName="criteria2" placeholder="Criteria 2(%)" type=number min=1>
+                </mat-form-field>
+          </div>
+      </td>
+      <!-- <td ><button mat-raised-button color="warn" class="removeBtn"  type="button" *ngIf="row>0" (click)="removeNewRowButton(row)" >REMOVE</button></td> -->
+    </tr>
+    <!-- <tr>
+      <td colspan="6"><button mat-raised-button color="primary"  type="button" class="addBtn" (click)="addNewRowButton()" >ADD</button></td>
+    </tr> -->
+    <tr>
+      <td colspan="3" class="displayTotal"><p>Total : </p></td>
+      <td><p class="totalWeight">{{totalWeight}}</p></td>
+    </tr>
+
+
+
+  </table>
+
+</mat-card>
+
+<mat-card>
+  <button mat-raised-button color ="primary" type="submit" id="btnSubmit"  >Save Post</button>
+  <button mat-raised-button color ="primary" routerLink="/list" id="btnBack">Back</button>
+  </mat-card>
+
+
+</form>
+
+
+
+
+
+

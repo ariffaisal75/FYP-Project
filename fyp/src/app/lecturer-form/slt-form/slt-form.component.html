@@ -1,0 +1,328 @@
+
+  <!-- <mat-spinner></mat-spinner> -->\
+  <!-- #createSlt="ngForm"  -->
+  <form  [formGroup]="sltFormData" (ngSubmit)="saveSltData(sltFormData)">
+    <mat-card>
+        <h3>PENYELARASAN HASIL PEMBELAJARAN KEPADA KAEDAH PENILAIAN</h3>
+    </mat-card>
+      <mat-card>
+
+      <div class="pensyarah" *ngFor="let user of users">
+        <P id="pensyarah" >Nama Pensyarah : </P>
+        <p id="pensyarahName" >{{user.lecturerName}}</p>
+      </div>
+
+
+
+      <div *ngFor="let courses of course">
+
+        <div class="course">
+          <p id="code" class="w3-display-left">Kod dan Tajuk Kursus : </p>
+
+          <p class= "courseId">{{courses.courseName}}</p>
+        </div>
+        <!-- <p>{{getCreditHour(courses.creditHour)}}</p> -->
+        <br>
+        <p id="session">Sesi Akademik : </p>
+        <p class= "sessionId">{{courses.session}}</p>
+
+
+        <p id="semester">Semester : </p>
+        <p class= "semesterId">{{courses.semester}}</p>
+      </div>
+
+
+        <br>
+        <br>
+      </mat-card>
+
+      <mat-card >
+        <table>
+
+              <tr >
+                  <th colspan="20">TEACHING & LEARNING</th>
+                </tr>
+
+
+          <tr>
+            <th colspan="2">ACTIVITIES</th>
+            <th>FACE TO FACE</th>
+            <th>NON FACE TO FACE </th>
+            <th>STUDENT PREPARATION TIME</th>
+            <th>NO OF STUDENT LEARNING TIME (SLT)</th>
+            <td></td>
+          </tr>
+          <tr formArrayName="teachLearn" *ngFor="let data of sltFormData.get('teachLearn')['controls']; let row=index">
+            <td width="150" colspan="2">
+              <div [formGroupName]="row" >
+                  <mat-form-field class="activities">
+                      <input placeholder="activities" formControlName="activities" matInput >
+                  </mat-form-field>
+              </div>
+
+            </td>
+            <td width="200">
+              <div [formGroupName]="row">
+                  <mat-form-field class="hour">
+                      <input placeholder="Hour" formControlName="hourMeet" (change)="meetCal(sltFormData)" matInput type="number" min=1>
+                  </mat-form-field>
+                  <p class="times">x</p>
+                  <mat-form-field class="week">
+                      <input placeholder="Week" formControlName="weekMeet" (change)="meetCal(sltFormData)" matInput type="number" min=1>
+                  </mat-form-field>
+              </div>
+
+                <br>
+                <p class="equal">=</p>
+                <!-- <mat-form-field class="total">
+                    <input placeholder="Total" matInput type="number" [attr.disabled]="inputDisable==true" min=1>
+
+                </mat-form-field> -->
+                <p class="total">{{totalMeethour[row]}}</p>
+                <p class="hourLabel">hrs</p>
+            </td>
+            <td width="200">
+              <div [formGroupName]="row">
+                  <mat-form-field class="hour">
+                      <input placeholder="Hour" formControlName="hourNotMeet" (change)="notMeetCal(sltFormData)" matInput type="number" min=1>
+                  </mat-form-field>
+                  <p class="times">x</p>
+                  <mat-form-field class="week">
+                      <input placeholder="Week" formControlName="weekNotMeet" (change)="notMeetCal(sltFormData)" matInput type="number" min=1>
+                  </mat-form-field>
+              </div>
+
+                <br>
+                <p class="equal">=</p>
+                <!-- <mat-form-field class="total">
+                    <input placeholder="Total" matInput type="number" min=1>
+                </mat-form-field> -->
+                <p class="total">{{totalNotMeethour[row]}}</p>
+                <p class="hourLabel">hrs</p>
+            </td>
+            <td width="250">
+              <div [formGroupName]="row">
+                  <mat-form-field class="hour">
+                      <input placeholder="Hour" formControlName="hourReady" (change)="readyCal(sltFormData)" matInput type="number" min=1>
+                  </mat-form-field>
+                  <p class="times">x</p>
+                  <mat-form-field class="week">
+                      <input placeholder="Week" formControlName="weekReady" (change)="readyCal(sltFormData)" matInput type="number" min=1>
+                  </mat-form-field>
+              </div>
+
+                <br>
+                <p class="equal">=</p>
+                <!-- <mat-form-field class="total">
+                    <input placeholder="Total" matInput type="number" min=1>
+                </mat-form-field> -->
+                <p class="total">{{totalReady[row]}}</p>
+                <p class="hourLabel">hrs</p>
+            </td>
+            <td width="320">
+              <p class="learnTotal" *ngIf="stulearnTime[row]<0">0</p>
+               <p class="learnTotal" *ngIf="stulearnTime[row]>0">{{stulearnTime[row]}}</p>
+            </td>
+            <!-- <td>
+                <button mat-raised-button color="warn" *ngIf="row>0" (click)="removeTeachLearnButton(row)"  >REMOVE</button>
+            </td> -->
+          </tr>
+          <tr>
+            <!-- <td colspan="7">  <button mat-raised-button color="primary" (click)="addTeachLearnRowButton()" class="addBtn" >ADD</button></td> -->
+          </tr>
+          <tr>
+            <td colspan="2">
+              <p class="learnTotal"></p>
+            </td>
+            <td >
+                <p class="learnTotal" *ngIf="totalmeet<0">0</p>
+              <p class="learnTotal">{{totalmeet}}</p>
+            </td>
+            <td >
+                <p class="learnTotal" *ngIf="totalnotmeet<0">0</p>
+              <p class="learnTotal">{{totalnotmeet}}</p>
+            </td>
+            <td >
+                <p class="learnTotal" *ngIf="totalready<0">0</p>
+              <p class="learnTotal">{{totalready}}</p>
+            </td>
+            <td>
+                <p class="learnTotal" *ngIf="totalLearnTime<=0">0</p>
+              <p class="learnTotal" *ngIf="totalLearnTime>0">{{totalLearnTime}}</p>
+            </td>
+            <td>
+
+              </td>
+
+          </tr>
+          <tr>
+              <th colspan="20">ASSESSMENT</th>
+            </tr>
+            <tr>
+               <th width="100">
+                  Weightage
+               </th>
+               <th colspan="5" class="assessHeader">Continuous Assessment</th>
+               <th>
+
+               </th>
+            </tr>
+            <tr formArrayName="contAssessment" *ngFor="let data of sltFormData.get('contAssessment')['controls']; let rowCont=index">
+              <td>
+                <p class="learnTotal">{{weight[rowCont]}}</p>
+              </td>
+              <td width="150">
+                <div [formGroupName]="rowCont">
+                    <mat-form-field class="activities">
+                        <input placeholder="activities" formControlName="activitiesCont" matInput >
+                    </mat-form-field>
+                </div>
+                </td>
+                <td>
+                  <div [formGroupName]="rowCont">
+                      <mat-form-field class="activities">
+                          <input placeholder="Hour" formControlName="hourMeetCont" min=1 (change)="contCal(sltFormData)" matInput type="number">
+                      </mat-form-field>
+                  </div>
+
+                </td>
+                <td>
+                  <div [formGroupName]="rowCont">
+                      <mat-form-field class="activities">
+                          <input placeholder="Hour" formControlName="hourNotMeetCont" min=1 (change)="contCal(sltFormData)" matInput type="number">
+                      </mat-form-field>
+                  </div>
+                </td>
+                <td>
+                  <div [formGroupName]="rowCont">
+                      <mat-form-field class="hour">
+                          <input placeholder="Hour" formControlName="hourReadyCont" (change)="contCal(sltFormData)" matInput type="number" min=1>
+                      </mat-form-field>
+                      <p class="times">x</p>
+                      <mat-form-field class="week">
+                          <input placeholder="Week" formControlName="weekReadyCont" (change)="contCal(sltFormData)" matInput type="number" min=1>
+                      </mat-form-field>
+                  </div>
+
+                    <br>
+                    <p class="equal">=</p>
+                    <!-- <mat-form-field class="total">
+                        <input placeholder="Total" matInput type="number" min=1>
+                    </mat-form-field> -->
+                    <p class="total">{{contTimeReady[rowCont]}}</p>
+                    <p class="hourLabel">hrs</p>
+
+                </td>
+                <td>
+                    <p class="learnTotal" *ngIf="contLearnTime[rowCont]<0">0</p>
+                    <p class="learnTotal" *ngIf="contLearnTime[rowCont]>0">{{contLearnTime[rowCont]}}</p>
+                </td>
+                <!-- <td>
+                      <button mat-raised-button color="warn" *ngIf="rowCont>0"  (click)="removeContAssessmentButton(rowCont)" >REMOVE</button>
+                </td> -->
+
+            </tr>
+            <tr>
+                <!-- <td colspan="7">  <button mat-raised-button color="primary" (click)="addcontAssessment()" class="addBtn" >ADD</button></td> -->
+              </tr>
+            <tr>
+                <th width="100">
+                   Weightage
+                </th>
+                <th colspan="5" class="assessHeader">Summative Assessment</th>
+                <th></th>
+             </tr>
+
+            <tr>
+
+                <td>
+                    <p class="learnTotal">{{finalExamWeight}}</p>
+                </td>
+                <td>
+                    <!-- <mat-form-field class="activities">
+                        <input placeholder="activities" formControlName="sumActivityAssessment" matInput >
+                    </mat-form-field> -->
+                    <p class="final">Final Exam</p>
+                </td>
+                <td>
+                    <mat-form-field class="activities">
+                        <input placeholder="Hour" formControlName="sumHourMeetAssessment" min=1 (change)="sumCal(sltFormData)" matInput type="number">
+                    </mat-form-field>
+
+                </td>
+                <td>
+                    <!-- <mat-form-field class="activities">
+                        <input placeholder="Hour" matInput type="number">
+                    </mat-form-field> -->
+
+                </td>
+                <td>
+                    <mat-form-field class="activities">
+                        <input placeholder="Hour" formControlName="sumHourReadyAssessment" min=1 (change)="sumCal(sltFormData)" matInput type="number">
+                    </mat-form-field>
+
+                </td>
+                <td>
+                    <p class="learnTotal" *ngIf="sumLearnTime<0">0</p>
+                    <p class="learnTotal" *ngIf="sumLearnTime>0">{{sumLearnTime}}</p>
+                </td>
+                <td></td>
+            </tr>
+            <!-- <tr>
+                <td colspan="6">  <button mat-raised-button color="primary" class="addBtn" >ADD</button></td>
+              </tr> -->
+              <tr>
+                  <td colspan="2">
+                    <p class="TotalSummative">Total</p>
+                  </td>
+                  <td >
+                    <p class="learnTotal">{{totalMeetForm}}</p>
+                  </td>
+                  <td >
+                    <p class="learnTotal">{{totalNotMeetForm}}</p>
+                  </td>
+                  <td >
+                    <p class="learnTotal">{{totalReadyForm}}</p>
+                  </td>
+                  <td>
+                    <p class="learnTotal">{{assessLearnTime}}</p>
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <p class="finalTotal">TOTAL SLT</p>
+                      </td>
+                      <td>
+                          <p class="learnTotal">{{totalSLT}}</p>
+                        </td>
+                        <td></td>
+
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <p class="max" >Max Credit = </p><p class="maxcredit"> {{maxCredit}}</p>
+                  </td>
+                    <td colspan="3">
+                        <p class="finalTotal" >CREDIT = SLT/40</p>
+                      </td>
+                      <td>
+                          <p class="learnTotal">{{totalCredit}}</p>
+                        </td>
+                        <td></td>
+                </tr>
+
+        </table>
+
+      </mat-card>
+
+      <mat-card class="cardTable">
+
+          <button mat-raised-button color ="primary" routerLink="/list" id="btnBack">BACK</button>
+          <button mat-raised-button color ="primary" type="submit" id="btnSubmit">SAVE</button>
+          </mat-card>
+
+
+
+  </form>
+
